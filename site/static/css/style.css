@@ -1,0 +1,89 @@
+html{
+    width:100%;
+    height:100%;
+}
+
+body{
+    margin:0px;
+    width:100%;
+    height:100%;
+}
+
+.button{
+    font-size:10pt;
+}
+
+.dropdown{
+    font-size:10pt;
+}
+
+.checkbox{
+    font-size:10pt;
+}
+
+.people_tab .tableheader{
+    padding:11px;
+    font-size:10pt;
+    font-weight:normal;
+}
+
+.people_tab .tablecell{
+    padding:6px;
+    padding-top:11px;
+    padding-bottom:11px;
+}
+
+.inner_title{ 
+    color: #37c;
+    border-bottom: 1px dashed;
+    text-decoration: none;
+    line-height: 28px;
+}
+
+.table_label{
+    text-align:right;
+    vertical-align:top;
+    font-size:11pt;
+    padding-top:3px;
+    padding-right:3px;
+}
+
+.task{
+    padding:7px; border-radius:3px; margin-top:5px;
+}
+
+.task_red{
+    background-color:#fbb; border:1px solid #c66; 
+}
+
+.task_green{
+    background-color:#dfc; border:1px solid #6b6;
+}
+
+.task_blue{
+    background-color:#cdf; border:1px solid #99c;
+}
+
+.task_yellow{
+    background-color:#ffc; border:1px solid #cb6;
+}
+
+.task_white{
+    background-color:#fff; border:1px solid #ccc;
+}
+
+a, a:visited { 
+    color: #4488FF;
+}
+
+pre{
+    color: #000;
+    margin-top:6px;
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+}
+
+
