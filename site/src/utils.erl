@@ -1,4 +1,4 @@
-%   Copyright 2013 Alexandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
@@ -22,26 +22,27 @@ list_to_date(L) ->
     Ds = string:tokens(L, "_"),
     list_to_tuple([list_to_integer(D) || D <- Ds]).
 
-color_to_word("white") -> "белый";
-color_to_word("red") -> "красный";
-color_to_word("green") -> "зеленый";
-color_to_word("blue") -> "синий";
-color_to_word("yellow") -> "желтый";
-color_to_word(_) -> "неизвестный".
+% kind of presudo-localization?
+color_to_word("white") -> "white";
+color_to_word("red") -> "red";
+color_to_word("green") -> "green";
+color_to_word("blue") -> "blue";
+color_to_word("yellow") -> "yellow";
+color_to_word(_) -> "unrecognizeable".
 
-month_to_word(1) -> "января";
-month_to_word(2) -> "февраля";
-month_to_word(3) -> "марта";
-month_to_word(4) -> "апреля";
-month_to_word(5) -> "мая";
-month_to_word(6) -> "июня";
-month_to_word(7) -> "июля";
-month_to_word(8) -> "августа";
-month_to_word(9) -> "сентября";
-month_to_word(10) -> "октября";
-month_to_word(11) -> "ноября";
-month_to_word(12) -> "декабря";
-month_to_word(_) -> "непонятно".
+month_to_word(1) -> "Jan";
+month_to_word(2) -> "Feb";
+month_to_word(3) -> "Mar";
+month_to_word(4) -> "Apr";
+month_to_word(5) -> "May";
+month_to_word(6) -> "Jun";
+month_to_word(7) -> "Jul";
+month_to_word(8) -> "Aug";
+month_to_word(9) -> "Sep";
+month_to_word(10) -> "Oct";
+month_to_word(11) -> "Nov";
+month_to_word(12) -> "Dec";
+month_to_word(_) -> "no month".
 
 integer_to_2list(I) ->
     case I < 10 of
