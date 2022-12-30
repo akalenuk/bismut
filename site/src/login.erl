@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 
-%   Copyright 2013 Alexandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
@@ -42,18 +42,18 @@ body() ->
                                 "<font face='sans-serif' size='5'>"++Name++":</font>"
                             ]},
                             #br{},
-                            #span{text="Логин: "},
+                            #span{text="Login: "},
                             #textbox{id=login, postback=login},
                             #br{},
-                            #span{text="Пароль: "},
+                            #span{text="Password: "},
                             #password{id=password, postback=login},
                             #br{},
                             #br{},
                             case wf:user() of
-                                undefined -> #button{id=login_button, text="Залогиниться", postback=login};
+                                undefined -> #button{id=login_button, text="Log in", postback=login};
                                 _ -> [
-                                        #button{id=login_button, text="Перелогиниться", postback=login},
-                                        #button{id=login_button, text="Вылогиниться", postback=logoff}
+                                        #button{id=login_button, text="Re-log in", postback=login},
+                                        #button{id=login_button, text="Log out", postback=logoff}
                                     ]
                             end
                         ]}
@@ -69,7 +69,7 @@ event(login) ->
     Login = wf:q(login),
     Password = wf:q(password),
     case Login of
-        "" -> wf:wire(#alert{text="Нужен хоть какой-то логин."});
+        "" -> wf:wire(#alert{text="You should have at least some kind of login."});
         _ -> 
             RealPassword = salode:load("data/" ++ wf:state(project) ++ "/people/" ++ Login ++ "/password", no_password),
             case RealPassword of
@@ -78,8 +78,8 @@ event(login) ->
                     wf:config_default(session_timeout, 1440),
                     wf:session(project, wf:q("of")),
                     wf:redirect("/tasks?of=" ++ wf:state(project));
-                no_password -> wf:wire(#alert{text="Логин неправильный."});
-                _ -> wf:wire(#alert{text="Пароль неправильный."})
+                no_password -> wf:wire(#alert{text="Wrong login."});
+                _ -> wf:wire(#alert{text="Wrong password."})
             end
     end;
 
