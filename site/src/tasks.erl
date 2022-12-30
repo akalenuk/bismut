@@ -215,7 +215,7 @@ comments_list(Key) ->
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% События
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Events
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 event({take_task, Key, To}) ->
@@ -311,8 +311,8 @@ event({add_task, Key}) ->
     Color = wf:q(TS ++ "_task_color"),
     save_task(Key, Before, After, Info, Color),
     case TS == wf:state(project) of
-        true -> []; % большая задача не нуждается в апдейте кнопки подзадач
-        false -> wf:update(TS ++ "_details", task_open_panel(Key)) % апдейт кнопки подзадач
+        true -> []; % major task don't need the sub- button update
+        false -> wf:update(TS ++ "_details", task_open_panel(Key)) % sub- button update
     end,
     wf:update(TS ++ "_children", [task_panel(LKey) || LKey <- lists:usort( salode:ls(Key ++ "/tasks") )]);
 
@@ -361,7 +361,7 @@ event({hide, Key}) ->
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Данные
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 save_task(Path, Before, After, Info, Color) ->
