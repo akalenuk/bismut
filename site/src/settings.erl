@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 
-%   Copyright 2013 Alexandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Страница
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 main() -> 
@@ -92,19 +92,19 @@ tab() ->
 
 rights_panel() ->
     #panel{class="people_tab", body=[
-        #span{text="Таблица прав:", style="padding-left:11px; font-size:16pt;"},
+        #span{text="Table of priviledges:", style="padding-left:11px; font-size:16pt;"},
         #br{},
         #br{},
         #table{style="padding:6px;", rows=[
             #tablerow{cells=[
                 #tableheader{body=[]},
-                #tableheader{body="<nobr>брать задачи</nobr>", style="background-color:#ffd;"},
-                #tableheader{body="комментировать", style="background-color:#ffd;"},
-                #tableheader{body="перекрашивать", style="background-color:#ffd;"},
-                #tableheader{body="удалять", style="background-color:#ffd;"},
-                #tableheader{body="<nobr>прятать подзадачи</nobr>", style="background-color:#fef;"},
-                #tableheader{body="добавлять", style="background-color:#fef;"},
-                #tableheader{body="<nobr>менять чужие права</nobr>", style="background-color:#eff;"}
+                #tableheader{body="<nobr>take tasks</nobr>", style="background-color:#ffd;"},
+                #tableheader{body="comment", style="background-color:#ffd;"},
+                #tableheader{body="repaint", style="background-color:#ffd;"},
+                #tableheader{body="<nobr>remove tasks</nobr>", style="background-color:#ffd;"},
+                #tableheader{body="<nobr>hide subtasks</nobr>", style="background-color:#fef;"},
+                #tableheader{body="<nobr>add tasks</nobr>", style="background-color:#fef;"},
+                #tableheader{body="<nobr>alter priviledges</nobr>", style="background-color:#eff;"}
             ]}
         ] ++  
         [
@@ -119,9 +119,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/task_take", "none"), 
                             postback={change_rights, "task_take", UId},
                             options=[
-                                #option{text="свободные", value="free"},
-                                #option{text="любые", value="any"},
-                                #option{text="нельзя", value="none"}
+                                #option{text="free", value="free"},
+                                #option{text="any", value="any"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#ffd;"},
@@ -131,9 +131,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/task_comment", "none"), 
                             postback={change_rights, "task_comment", UId},
                             options=[
-                                #option{text="если сам добавил", value="own"},
-                                #option{text="любые задачи", value="any"},
-                                #option{text="нельзя", value="none"}
+                                #option{text="own", value="own"},
+                                #option{text="any", value="any"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#ffd;"},
@@ -143,9 +143,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/task_repaint", "none"), 
                             postback={change_rights, "task_repaint", UId},
                             options=[
-                                #option{text="собственные", value="own"},
-                                #option{text="любые", value="any"},
-                                #option{text="нельзя", value="none"}
+                                #option{text="own", value="own"},
+                                #option{text="any", value="any"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#ffd;"},
@@ -155,9 +155,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/task_delete", "none"), 
                             postback={change_rights, "task_delete", UId},
                             options=[
-                                #option{text="собственные", value="own"},
-                                #option{text="любые", value="any"},
-                                #option{text="нельзя", value="none"}
+                                #option{text="own", value="own"},
+                                #option{text="any", value="any"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#ffd;"},
@@ -167,9 +167,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/subtask_hide", "none"), 
                             postback={change_rights, "subtask_hide", UId},
                             options=[
-                                #option{text="в собственных", value="own"},
-                                #option{text="в любых задачах", value="any"},
-                                #option{text="не разрешается", value="none"}
+                                #option{text="own", value="own"},
+                                #option{text="any", value="any"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#fef;"},
@@ -179,9 +179,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/task_create", "none"), 
                             postback={change_rights, "task_create", UId},
                             options=[
-                                #option{text="задачи и подзадачи", value="any"},
-                                #option{text="только подзадачи", value="sub"},
-                                #option{text="не разрешается", value="none"}
+                                #option{text="any", value="any"},
+                                #option{text="sub-tasks only", value="sub"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#fef;"},
@@ -191,9 +191,9 @@ rights_panel() ->
                             value=salode:load("data/" ++ wf:state(project) ++ "/people/" ++ UId ++ "/people", "none"), 
                             postback={change_rights, "people", UId},
                             options=[
-                                #option{text="и добавлять людей", value="add"},
-                                #option{text="у уже добавленных", value="change"},
-                                #option{text="не разрешается", value="none"}
+                                #option{text="add", value="add"},
+                                #option{text="change", value="change"},
+                                #option{text="none", value="none"}
                             ]
                         }
                     ], style="background-color:#eff;"}
@@ -205,68 +205,68 @@ rights_panel() ->
 
 add_panel() ->
     #panel{style="padding:11px;", body=[
-        #span{text="Добавление нового человека:", style="font-size:16pt;"},
+        #span{text="Adding a teammate:", style="font-size:16pt;"},
         #br{},
         #br{},
         #singlerow{cells=#tablecell{align="right", body=[
-            "Будущий логин: ",
+            "Teammate's login: ",
             #textbox{id=new_person_id},
             #br{},
-            "Будущий пароль: ",
+            "Initial password: ",
             #textbox{id=new_person_password},
             #br{},
-            "Человеку будут даны права: ",
+            "Teammate's priviledges: ",
             #dropdown{
                 id=new_person_rights,
                 options=[
-                    #option{text="гостя", value="guest"},
-                    #option{text="тестировщика", value="tester"},
-                    #option{text="исполнителя", value="dev"},
-                    #option{text="руководителя", value="pm"},
-                    #option{text="суперюзера", value="su"}
+                    #option{text="guest", value="guest"},
+                    #option{text="tester", value="tester"},
+                    #option{text="developer", value="dev"},
+                    #option{text="manager", value="pm"},
+                    #option{text="superuser", value="su"}
                 ]
             },
             #br{},
-            #button{text="Добавить", postback=add_new_person}
+            #button{text="Add", postback=add_new_person}
         ]}},
         #br{},
-        #panel{body="Эту же форму можно использовать для сброса забытого пароля.", style="font-size:9pt; width:45em;"}
+        #panel{body="You can reuse this form to reset the password.", style="font-size:9pt; width:45em;"}
     ]}.
 
 change_password_panel() ->
     #panel{style="padding:11px;", body=[
-        #span{text="Смена своего пароля:", style="font-size:16pt;"},
+        #span{text="Password change:", style="font-size:16pt;"},
         #br{},
         #br{},
         #singlerow{cells=#tablecell{align="right", body=[
-            "Новый пароль: ",
+            "New password: ",
             #password{id=new_password},
             #br{},
-            "И еще раз: ",
+            "Once more, please: ",
             #password{id=new_password2},
             #br{},
-            #button{text="Поменять", postback=change_password}
+            #button{text="Change", postback=change_password}
         ]}}
     ]}.
 
 author_panel() ->
     AI = salode:load("data/" ++ wf:state(project) ++ "/people/" ++ wf:user() ++ "/info", ""),
     #panel{style="padding:11px;", body=[
-        #span{text="О себе:", style="font-size:16pt;"},
+        #span{text="About:", style="font-size:16pt;"},
         #br{},
         #br{},
         #singlerow{cells=#tablecell{align="right", body=[
             #textarea{id=author_info, style="width:365px; height:84px;", text=AI},
             #br{},
-            #button{text="Записать", postback=set_author_info}
+            #button{text="Write", postback=set_author_info}
         ]}},
         #br{},
-        #panel{body="Этот текст приписывается к каждой поставленной задаче. Тут можно указать конфигурацию своей системы, версию браузера или любые другие полезные сведения.", style="font-size:9pt; width:45em;"}
+        #panel{body="This text adds automatically to any task. You can put your system details here.", style="font-size:9pt; width:45em;"}
     ]}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% События
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Events
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 event(add_new_person) ->
@@ -275,8 +275,8 @@ event(add_new_person) ->
     Rights = wf:q(new_person_rights),
     Project = wf:state(project),
     case UId of
-        undefined -> wf:wire(#alert{text="Нужно хоть какое-то имя"});
-        "" -> wf:wire(#alert{text="Нужно хоть какое-то имя"});
+        undefined -> wf:wire(#alert{text="You should have at least some name"});
+        "" -> wf:wire(#alert{text="You should have at least some name"});
         _ -> 
             salode:save("data/" ++ Project ++ "/people/" ++ UId ++ "/password", Password),
             set_rights_preset(Project, UId, Rights)
@@ -293,9 +293,9 @@ event(change_password) ->
     case P1 == P2 of 
         true ->
             salode:save("data/" ++ wf:state(project) ++ "/people/" ++ wf:user() ++ "/password", P1),
-            wf:wire(#alert{text="Пароль изменен."});
+            wf:wire(#alert{text="Password changed."});
         _ ->
-            wf:wire(#alert{text="Новые пароли не совпадают!"})
+            wf:wire(#alert{text="New password differs from its own copy!"})
     end,
     wf:set(new_password, ""),
     wf:set(new_password2, "");
@@ -306,7 +306,7 @@ event({change_rights, Right, UId}) ->
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Данные
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 set_rights_preset(Project, UId, Preset) ->
@@ -352,5 +352,4 @@ set_rights_preset(Project, UId, Preset) ->
             salode:save("data/" ++ Project ++ "/people/" ++ UId ++ "/task_create", "any"),   % any, sub, none
             salode:save("data/" ++ Project ++ "/people/" ++ UId ++ "/people", "add")  % add, change, none
     end.
-
 
