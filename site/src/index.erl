@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 
-%   Copyright 2013 Alexandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Страница
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% The page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 main() -> #template { file="./site/templates/bare.html" }.
 
-title() -> "Висмут".
+title() -> "Bismut".
 
 body() ->
     #container_12 { body=[
@@ -40,10 +40,10 @@ inner_body() ->
         ]},
         #br{},
         #br{},
-        #panel{style="padding:11px;", body="Это колаборативный задачник. Веб-штука для планирования, обсуждения задач и&nbsp;трекинга багов. Вопросы, предложения и&nbsp;жалобы можете направлять по&nbsp;адресу: <a href='mailto:akalenuk@imp.lg.ua'>akalenuk@imp.lg.ua</a>."},
+        #panel{style="padding:11px;", body="This is a collaborative task tracker. Like a traditional bug tracker but with hierarhical items. If you get the concept but want something different, contact me at: <a href='mailto:akalenuk@gmail.com'>akalenuk@gmail.ua</a>."},
         #br{},
         #br{},
-        #span{style="padding:11px; font-size:16pt;", text="Список задачников:"},
+        #span{style="padding:11px; font-size:16pt;", text="Task books:"},
         #panel{style="padding:11px; line-height:20pt;", body=
             [begin
                 TS = hd(lists:reverse(ling:split(Key, "/"))),
@@ -65,47 +65,47 @@ inner_body() ->
         },
         #br{},
         #br{},
-        #span{style="padding:11px; font-size:16pt;", text="Сделать новый задачник:"},
+        #span{style="padding:11px; font-size:16pt;", text="Create a new task book:"},
         #br{},
         #br{},
         #singlerow{style="padding-left:11px;", cells=#tablecell{align="right", body=[
-            "Название в URL: ",
+            "URL name: ",
             #textbox{id=new_project_url},
             #br{},
-            "Человеческое название: ",
+            "Readble name: ",
             #textbox{id=new_project_name},
             #br{},
-            "Описание для главной: ",
+            "Description: ",
             #textbox{id=new_project_description},
             #br{},
             #br{},
-            "Логин суперюзера: ",
+            "Superuser login: ",
             #textbox{id=new_project_su_login},
             #br{},
-            "Пароль суперюзера: ",
+            "Superuser password: ",
             #textbox{id=new_project_su_password},
             #br{},
             #br{},
-            "Код-приглашение: ",
+            "Invite code: ",
             #textbox{id=new_project_invite},
             #br{},
-            #button{text="Добавить", postback=add_new_project}
+            #button{text="Add one", postback=add_new_project}
         ]}},
         #br{},
         #br{},
-        #span{style="padding:11px; font-size:16pt;", text="Сорцы: "},
+        #span{style="padding:11px; font-size:16pt;", text="Source code: "},
         #br{},
         #br{},
         #link{style="padding:11px;", text="https://github.com/akalenuk/bismut", url="https://github.com/akalenuk/bismut"},
-        #panel{style="padding:11px; font-size:11pt;", body="Исходный код отдается по&nbsp;лицензии <a href='http://www.apache.org/licenses/LICENSE-2.0.html'>Apache&nbsp;2.0</a>. Если коротко: делайте с&nbsp;ним, что хотите, а&nbsp;я&nbsp;ни&nbsp;за&nbsp;что не&nbsp;отвечаю."},
-        #panel{style="padding:11px; font-size:11pt;", body="Это сайт для <a href='http://nitrogenproject.com/'>&laquo;Нитрогена&raquo;</a>. Для того, чтобы запустить &laquo;Висмут&raquo; локально, надо поставить сам &laquo;Нитроген&raquo;, поместить сорцы в&nbsp;site/ и&nbsp;запустить веб-сервер согласно инструкции."},
+        #panel{style="padding:11px; font-size:11pt;", body="Source code is licensed with <a href='http://www.apache.org/licenses/LICENSE-2.0.html'>Apache&nbsp;2.0</a>. TL&DR: you do whatever you want, I don't take any responsibility."},
+        #panel{style="padding:11px; font-size:11pt;", body="This is a &laquo;<a href='http://nitrogenproject.com/'>Nitrogen</a>&raquo; site. To run your own instance, download Nitrogen, put the sources into the <pre>site/</pre> folder, and run the Nitrogen node by running <pre>bin/nitrogen console</pre>."},
         #br{},
         #br{}
     ].
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% События
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Events
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 event(add_new_project) ->
@@ -119,22 +119,22 @@ event(add_new_project) ->
     Invite = wf:q(new_project_invite),
 
     case check_url_id_latin(URLId) of
-        not_ok -> wf:wire(#alert{text="В URL можно только латиницу, цифры и дефис. Например, \"manhattan_project_1945\""});
+        not_ok -> wf:wire(#alert{text="You should only use latin, numbers, and the underscore in the URL name. E. g. \"manhattan_project_1945\""});
         ok -> 
             case check_url_id_taken(URLId) of
-                not_ok -> wf:wire(#alert{text="Такой URL уже занят."});
+                not_ok -> wf:wire(#alert{text="Sorry, this URL is taken."});
                 ok ->
-                    case length(Name) > 16*2 of % это неправильно, тут надо считать уникод
-                        true -> wf:wire(#alert{text="Название может быть длинной только в 16 символов и меньше."});
+                    case length(Name) > 16*2 of % that's wrong, consuder UTF-8
+                        true -> wf:wire(#alert{text="Sorry, the readable name should be short. 16 characters or less."});
                         _ ->
-                            case length(Description) > 44*2 of % и это неправильно, тут надо считать уникод
-                                true -> wf:wire(#alert{text="Описание может быть длинной только в 44 символа и меньше."});
+                            case length(Description) > 44*2 of % this is also wrong
+                                true -> wf:wire(#alert{text="Sorry, the description should also be short. 44 symbols or less."});
                                 _ ->
                                     case SULogin of 
-                                        "" -> wf:wire(#alert{text="Логин суперюзера не может быть пустым."});
+                                        "" -> wf:wire(#alert{text="Sorry, the superuser login should not remain empty."});
                                         _ ->
                                             case use_invite(Invite) of 
-                                                not_ok -> wf:wire(#alert{text="Хм. Наверное, кто-то этот инвайт уже использовал"});
+                                                not_ok -> wf:wire(#alert{text="Sorry, seems like somebody already used this invite code."});
                                                 ok ->
                                                     salode:save("data/"++URLId++"/name", Name),
                                                     salode:save("data/"++URLId++"/description", Description),
@@ -150,7 +150,7 @@ event(add_new_project) ->
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Данные
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 check_url_id_latin([]) -> ok;
@@ -169,7 +169,7 @@ check_url_id_taken(Id) ->
 
 use_invite(Invite) ->
     case Invite of 
-        "Мне можно и без инвайта." -> ok; % для себя оставил лазейку
+        "Just let me in." -> ok; % this is a magic phrase to enter without invite
         _ ->
             L = salode:ls("data/invite_list"),
             case lists:member("data/invite_list/"++Invite, L) of
@@ -180,8 +180,3 @@ use_invite(Invite) ->
                     not_ok
             end
     end.
-
-
-    
-
-
