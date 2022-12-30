@@ -39,7 +39,7 @@ main() ->
             end
     end.
 
-title() -> "Настройки виcмута".
+title() -> "Bismut settings".
 
 body() ->
     Name = salode:load("data/"++wf:state(project)++"/name", "error"),
@@ -48,13 +48,13 @@ body() ->
         #panel{style="background-color:#eee; padding:11px;", body=[
             #link{body="<font face='sans-serif' size='5'>"++Name++":</font>", style="color:#000;", url="/"},
             tab(),
-            #link{text="Задачи", url="/tasks?of="++wf:state(project)},
+            #link{text="Tasks", url="/tasks?of="++wf:state(project)},
             tab(),
-            "Настройки",
+            "Settings",
             tab(),
             case wf:user() of
-                undefined -> #link{text="Логин", url="/login?of="++wf:state(project)};
-                _ -> ["Вы ", #link{text="зашли", url="/login?of="++wf:state(project)} ," как: <b>" ++ wf:user() ++ "</b>."]
+                undefined -> #link{text="Login", url="/login?of="++wf:state(project)};
+                _ -> ["You ", #link{text="logged in", url="/login?of="++wf:state(project)} ," as: <b>" ++ wf:user() ++ "</b>."]
             end
         ]},
         #br{},
