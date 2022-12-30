@@ -36,7 +36,7 @@ inner_body() ->
     wf:user(undefined),
     [
         #panel{style="background-color:#eee; padding:11px;", body=[
-            "<font face='sans-serif' size='5'>Висмут</font>"
+            "<font face='sans-serif' size='5'>Bismut</font>"
         ]},
         #br{},
         #br{},
