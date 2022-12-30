@@ -1,4 +1,4 @@
-%   Copyright 2013 Alexandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
