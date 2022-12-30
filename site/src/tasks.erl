@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 
-%   Copyright 2013 Alexandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Страница
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 main() ->     
@@ -50,7 +50,7 @@ main() ->
             end
     end.
 
-title() -> "Задачник".
+title() -> "Task book".
 
 body() ->
     Name = salode:load("data/"++wf:state(project)++"/name", "error"),
@@ -58,13 +58,13 @@ body() ->
         #panel{style="background-color:#eee; padding:11px;", body=[
             #link{body="<font face='sans-serif' size='5'>"++Name++":</font>", style="color:#000;", url="/"},
             tab(),
-            "Задачи",
+            "Tasks",
             tab(),
-            #link{text="Настройки", url="/settings?of="++wf:state(project)},
+            #link{text="Settings", url="/settings?of="++wf:state(project)},
             tab(),
             case wf:state(user) of
-                undefined -> #link{text="Логин", url="/login?of="++wf:state(project)};
-                _ -> ["Вы ", #link{text="зашли", url="/login?of="++wf:state(project)} ," как: <b>" ++ wf:state(user) ++ "</b>."]
+                undefined -> #link{text="Login", url="/login?of="++wf:state(project)};
+                _ -> ["You ", #link{text="logged in", url="/login?of="++wf:state(project)} ," as: <b>" ++ wf:state(user) ++ "</b>."]
             end
         ]},
         #br{},
@@ -76,7 +76,7 @@ body() ->
         case (wf:state(can_create) == "any") of
             true ->
                 ["<center>",
-                #button{id=wf:state(project) ++ "_new_task_panel_button", text="Добавить большую задачу", postback={open_task_panel, "data/" ++ wf:state(project)}},
+                #button{id=wf:state(project) ++ "_new_task_panel_button", text="Add a major task", postback={open_task_panel, "data/" ++ wf:state(project)}},
                 "</center>"];
             _ -> []
         end,
@@ -134,11 +134,11 @@ task_open_panel(Key) ->
         case (wf:state(can_take) == "any") or (wf:state(can_take) == "free") of
             true ->
                 [case Taken of 
-                    "" -> #button{text="Взять", postback={take_task, Key, wf:state(user)}};
+                    "" -> #button{text="Take", postback={take_task, Key, wf:state(user)}};
                     _ -> case wf:state(user) == Taken of
-                            true -> #button{text="Отдать", postback={take_task, Key, ""}};
+                            true -> #button{text="Give away", postback={take_task, Key, ""}};
                             _ -> case (wf:state(can_take) == "any") of
-                                    true -> #button{text="Отнять", postback={take_task, Key, ""}};
+                                    true -> #button{text="Take", postback={take_task, Key, ""}};
                                     _ -> []
                                 end
                         end
@@ -149,7 +149,7 @@ task_open_panel(Key) ->
 
         case (wf:state(can_comment) == "any") or ((wf:state(can_comment) == "own") and (Author == wf:state(user))) of
             true ->
-                [#button{text="Комментировать", postback={open_comment, Key}},
+                [#button{text="Comment", postback={open_comment, Key}},
                 "&nbsp;&nbsp;"];
             _ -> []
         end,
@@ -157,20 +157,20 @@ task_open_panel(Key) ->
         case (wf:state(can_repaint) == "any") or ((wf:state(can_repaint) == "own") and (Author == wf:state(user))) of
             true ->
                 [#dropdown { id=TS ++ "_task_repaint_color", options=[
-                    #option { text="Белым", value=white },
-                    #option { text="Зеленым", value=green },
-                    #option { text="Желтым", value=yellow },
-                    #option { text="Красным", value=red },
-                    #option { text="Синим", value=blue }
+                    #option { text="White", value=white },
+                    #option { text="Green", value=green },
+                    #option { text="Yellow", value=yellow },
+                    #option { text="Red", value=red },
+                    #option { text="Blue", value=blue }
                 ]},
-                #button{text="перекрасить", postback={repaint_task, Key}},
+                #button{text="repaint", postback={repaint_task, Key}},
                 "&nbsp;&nbsp;"];
             _ -> []
         end,
 
         case (wf:state(can_delete) == "any") or ((wf:state(can_delete) == "own") and (Author == wf:state(user))) of
             true ->
-                #button{text="Удалить", postback={delete_task, Key}};
+                #button{text="Remove", postback={delete_task, Key}};
             _ -> []
         end,
 
@@ -182,8 +182,8 @@ task_open_panel(Key) ->
                     0 -> [];
                     _ ->
                         case Expand of
-                            true -> #button{text="Спрятать подзадачи ("++ integer_to_list(SubTaskCount) ++ ")", postback={change_expand, Key, false}};
-                            _ -> #button{text="Показать подзадачи (" ++ integer_to_list(SubTaskCount) ++ ")", postback={change_expand, Key, true}}
+                            true -> #button{text="Hide subtasks ("++ integer_to_list(SubTaskCount) ++ ")", postback={change_expand, Key, false}};
+                            _ -> #button{text="Show subtasks (" ++ integer_to_list(SubTaskCount) ++ ")", postback={change_expand, Key, true}}
                         end
                 end,
                 "&nbsp;&nbsp;"];
@@ -192,7 +192,7 @@ task_open_panel(Key) ->
 
         case (wf:state(can_create) == "any") or (wf:state(can_create) == "sub") of
             true ->
-                #button{id=TS ++ "_new_task_panel_button", text="Добавить подзадачу", postback={open_task_panel, Key}};
+                #button{id=TS ++ "_new_task_panel_button", text="Add a subtask", postback={open_task_panel, Key}};
             _ -> []
         end,
 
@@ -222,8 +222,8 @@ event({take_task, Key, To}) ->
     TS = hd(lists:reverse(ling:split(Key, "/"))),
     change_taken(Key, To),
     case To of
-        "" -> salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Отдал задачу</i>"});
-        _ -> salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Взял задачу</i>"})
+        "" -> salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Gave away the task</i>"});
+        _ -> salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Took the task</i>"})
     end,
     %[event({take_task, CKey, To}) || CKey <- lists:usort( salode:ls(Key ++ "/tasks") )],
     wf:replace(TS ++ "_panel", task_panel(Key));
@@ -234,7 +234,7 @@ event({change_expand, Key, To}) ->
     wf:replace(TS ++ "_panel", task_panel(Key));
 
 event({delete_task, Key}) ->
-    wf:wire(#confirm{text="Вы точно хотите удалить задачу навсегда?", postback={do_delete_task, Key}});
+    wf:wire(#confirm{text="Do you really want to remove the task completely?", postback={do_delete_task, Key}});
 
 event({do_delete_task, Key}) ->
     TS = hd(lists:reverse(ling:split(Key, "/"))),
@@ -245,7 +245,7 @@ event({repaint_task, Key}) ->
     TS = hd(lists:reverse(ling:split(Key, "/"))),
     Color = wf:q(TS ++ "_task_repaint_color"),
     change_color(Key, Color),
-    salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Перекрасил в " ++ utils:color_to_word(Color) ++ ".</i>"}),
+    salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Repainted " ++ utils:color_to_word(Color) ++ ".</i>"}),
     wf:replace(TS ++ "_panel", task_panel(Key));
 
 event({open_task_panel, Key}) ->
@@ -256,40 +256,40 @@ event({open_task_panel, Key}) ->
         #br{},
         #table{rows=[
             #tablerow{cells=[
-                #tablecell{class="table_label", body="Было: "},
+                #tablecell{class="table_label", body="Before: "},
                 #tablecell{body=
                     #textbox{id=TS ++ "_task_before_text", style="width:35em;"}
                 }
             ]},
             #tablerow{cells=[
-                #tablecell{class="table_label", body="Станет: "},
+                #tablecell{class="table_label", body="After: "},
                 #tablecell{body=
                     #textbox{id=TS ++ "_task_after_text", style="width:35em;"}
                 }
             ]},
             #tablerow{cells=[
-                #tablecell{class="table_label", body="Подробности: "},
+                #tablecell{class="table_label", body="Details: "},
                 #tablecell{body=
                     #textarea{id=TS ++ "_task_info_text", style="width:35em; height:5em;"}
                 }
             ]},
             #tablerow{cells=[
-                #tablecell{class="table_label", body="Цвет: "},
+                #tablecell{class="table_label", body="Color: "},
                 #tablecell{body=
                     #dropdown { id=TS ++ "_task_color", options=[
-                        #option { text="Белый", value=white },
-                        #option { text="Зеленый", value=green },
-                        #option { text="Желтый", value=yellow },
-                        #option { text="Красный", value=red },
-                        #option { text="Синий", value=blue }
+                        #option { text="White", value=white },
+                        #option { text="Green", value=green },
+                        #option { text="Yellow", value=yellow },
+                        #option { text="Red", value=red },
+                        #option { text="Blue", value=blue }
                     ]}
                 }
             ]},
             #tablerow{cells=[
                 #tablecell{body=[]},
                 #tablecell{body=[
-                    #button{text="Добавить", postback={add_task, Key}},
-                    #button{text="Не добавлять", postback={hide_add_task, Key}}
+                    #button{text="Add", postback={add_task, Key}},
+                    #button{text="Don't add", postback={hide_add_task, Key}}
                 ]}
             ]}
         ]},
@@ -322,8 +322,8 @@ event({open_comment, Key}) ->
         #singlerow{cells=#tablecell{align="right", body=[
             #textarea{id=TS ++ "_comment_text", style="width:35em; height:5em;"},
             #br{},
-            #button{text="Добавить", style="", postback={add_comment, Key}},
-            #button{text="Не добавлять", style="", postback={close_comment, Key}},
+            #button{text="Add", style="", postback={add_comment, Key}},
+            #button{text="Don't add", style="", postback={close_comment, Key}},
             #br{},
             #br{}
         ]}}
@@ -337,7 +337,7 @@ event({close_comment, Key}) ->
 event({add_comment, Key}) ->
     TS = hd(lists:reverse(ling:split(Key, "/"))),
     Text = wf:q(TS ++ "_comment_text"),
-    salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Прокомментировал:</i><pre width=80>" ++ Text ++ "</pre>"}),
+    salode:save(Key ++ "/comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Commented:</i><pre width=80>" ++ Text ++ "</pre>"}),
     wf:update(TS ++ "_new_comment_panel", []),
     wf:update(TS ++ "_comments_panel", comments_list(Key));
 
@@ -371,10 +371,10 @@ save_task(Path, Before, After, Info, Color) ->
     salode:save(RP ++ "info", Info),
     salode:save(RP ++ "color", Color),
     salode:save(RP ++ "author", wf:state(user)),
-    salode:save(RP ++ "comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Покрасил в " ++ utils:color_to_word(Color) ++ ". </i>" ++
+    salode:save(RP ++ "comments/" ++ utils:date_to_list(now()), {wf:state(user), now(), "<i>Repainted " ++ utils:color_to_word(Color) ++ ". </i>" ++
         case salode:load("data/" ++ wf:state(project) ++ "/people/" ++ wf:state(user) ++ "/info", "") of
             "" -> "";
-            AuthorInfo -> "<i> О пользователе:<pre width=80>"++AuthorInfo++"</pre></i>"
+            AuthorInfo -> "<i> About:<pre width=80>"++AuthorInfo++"</pre></i>"
         end
     }).
 
