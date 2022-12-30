@@ -26,7 +26,7 @@ main() ->
             #template { file="./site/templates/bare.html" }
     end.
 
-title() -> "Логин в Висмут".
+title() -> "Bismut log in".
 
 body() -> 
     Name = salode:load("data/"++wf:state(project)++"/name", "error"),
