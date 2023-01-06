@@ -1,6 +1,6 @@
 Bismut
 ======
-This is a hierarchical color tracker. Like a traditional bug/task tracker but with multicolored hierarchical items so your whole project looks a bit like a bismuth crystal, and you can see its status immediately just by looking at the tasks at hand. 
+This is a hierarchical colored work tracker. Like a traditional bug/task tracker but with multicolored hierarchical items so your whole project looks a bit like a bismuth crystal, and you can see its status immediately just by looking at the tasks at hand. 
 
 ![Bismuth crystal](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Bismuth_%285109110719%29.jpg/800px-Bismuth_%285109110719%29.jpg)
 
