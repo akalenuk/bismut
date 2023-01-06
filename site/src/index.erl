@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 
-%   Copyright 2022 Oleksandr Kalenuk (akalenuk@gmail.com)
+%   Copyright 2022 Olexandr Kalenuk (akalenuk@gmail.com)
 %
 %   Licensed under the Apache License, Version 2.0 (the "License");
 %   you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ inner_body() ->
         ]},
         #br{},
         #br{},
-        #panel{style="padding:11px;", body="This is a collaborative task tracker. Like a traditional bug tracker but with hierarhical items. If you get the concept but want something different, contact me at: <a href='mailto:akalenuk@gmail.com'>akalenuk@gmail.ua</a>."},
+        #panel{style="padding:11px;", body="This is a hierarchical color tracker. Like a traditional bug/task tracker but with multicolored hierarchical items so your whole project looks a bit like a bismuth oxide, and you can see its health immediately just by looking at the tasks at hand. If you get the concept but want to suggest a feature or a bug fix, contact me at: <a href='mailto:akalenuk@gmail.com'>akalenuk@gmail.ua</a>."},
         #br{},
         #br{},
         #span{style="padding:11px; font-size:16pt;", text="Task books:"},
@@ -97,8 +97,8 @@ inner_body() ->
         #br{},
         #br{},
         #link{style="padding:11px;", text="https://github.com/akalenuk/bismut", url="https://github.com/akalenuk/bismut"},
-        #panel{style="padding:11px; font-size:11pt;", body="Source code is licensed with <a href='http://www.apache.org/licenses/LICENSE-2.0.html'>Apache&nbsp;2.0</a>. TL&DR: you do whatever you want, I don't take any responsibility."},
-        #panel{style="padding:11px; font-size:11pt;", body="This is a &laquo;<a href='http://nitrogenproject.com/'>Nitrogen</a>&raquo; site. To run your own instance, download Nitrogen, put the sources into the <pre>site/</pre> folder, and run the Nitrogen node by running <pre>bin/nitrogen console</pre>."},
+        #panel{style="padding:11px; font-size:11pt;", body="The source code is licensed under <a href='http://www.apache.org/licenses/LICENSE-2.0.html'>Apache&nbsp;2.0</a>. TL&DR: you do whatever you want, I don't take any responsibility."},
+        #panel{style="padding:11px; font-size:11pt;", body="This is a &laquo;<a href='http://nitrogenproject.com/'>Nitrogen</a>&raquo; site. To run your own instance, download Nitrogen, put the sources into the <i>site/</i> folder, and run the Nitrogen node by running <pre>bin/nitrogen console</pre> The site will appear at <pre>http://127.0.0.1:8000</pre>"},
         #br{},
         #br{}
     ].
